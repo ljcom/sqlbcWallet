@@ -1,0 +1,12 @@
+E:\vsonline\sqlbcWallet\sqlbcWallet\bin\Debug\sqlbcWallet.exe.config
+E:\vsonline\sqlbcWallet\sqlbcWallet\bin\Debug\sqlbcWallet.exe
+E:\vsonline\sqlbcWallet\sqlbcWallet\bin\Debug\sqlbcWallet.pdb
+E:\vsonline\sqlbcWallet\sqlbcWallet\bin\Debug\sqlbcWallet.xml
+E:\vsonline\sqlbcWallet\sqlbcWallet\obj\Debug\sqlbcWallet.vbprojResolveAssemblyReference.cache
+E:\vsonline\sqlbcWallet\sqlbcWallet\obj\Debug\sqlbcWallet.Resources.resources
+E:\vsonline\sqlbcWallet\sqlbcWallet\obj\Debug\sqlbcWallet.vbproj.GenerateResource.Cache
+E:\vsonline\sqlbcWallet\sqlbcWallet\obj\Debug\sqlbcWallet.vbproj.CoreCompileInputs.cache
+E:\vsonline\sqlbcWallet\sqlbcWallet\obj\Debug\sqlbcWallet.exe
+E:\vsonline\sqlbcWallet\sqlbcWallet\obj\Debug\sqlbcWallet.xml
+E:\vsonline\sqlbcWallet\sqlbcWallet\obj\Debug\sqlbcWallet.pdb
+E:\vsonline\sqlbcWallet\sqlbcWallet\obj\Debug\sqlbcWallet.wallet.resources
