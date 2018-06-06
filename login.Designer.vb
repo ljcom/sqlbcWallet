@@ -15,10 +15,8 @@ Partial Class login
         End Try
     End Sub
     Friend WithEvents LogoPictureBox As System.Windows.Forms.PictureBox
-    Friend WithEvents UsernameLabel As System.Windows.Forms.Label
     Friend WithEvents PasswordLabel As System.Windows.Forms.Label
-    Friend WithEvents UsernameTextBox As System.Windows.Forms.TextBox
-    Friend WithEvents PasswordTextBox As System.Windows.Forms.TextBox
+    Friend WithEvents tbPwd As System.Windows.Forms.TextBox
     Friend WithEvents OK As System.Windows.Forms.Button
     Friend WithEvents Cancel As System.Windows.Forms.Button
 
@@ -31,13 +29,12 @@ Partial Class login
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(login))
-        Me.LogoPictureBox = New System.Windows.Forms.PictureBox
-        Me.UsernameLabel = New System.Windows.Forms.Label
-        Me.PasswordLabel = New System.Windows.Forms.Label
-        Me.UsernameTextBox = New System.Windows.Forms.TextBox
-        Me.PasswordTextBox = New System.Windows.Forms.TextBox
-        Me.OK = New System.Windows.Forms.Button
-        Me.Cancel = New System.Windows.Forms.Button
+        Me.LogoPictureBox = New System.Windows.Forms.PictureBox()
+        Me.PasswordLabel = New System.Windows.Forms.Label()
+        Me.tbPwd = New System.Windows.Forms.TextBox()
+        Me.OK = New System.Windows.Forms.Button()
+        Me.Cancel = New System.Windows.Forms.Button()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         CType(Me.LogoPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -50,38 +47,22 @@ Partial Class login
         Me.LogoPictureBox.TabIndex = 0
         Me.LogoPictureBox.TabStop = False
         '
-        'UsernameLabel
-        '
-        Me.UsernameLabel.Location = New System.Drawing.Point(172, 24)
-        Me.UsernameLabel.Name = "UsernameLabel"
-        Me.UsernameLabel.Size = New System.Drawing.Size(220, 23)
-        Me.UsernameLabel.TabIndex = 0
-        Me.UsernameLabel.Text = "&User name"
-        Me.UsernameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
         'PasswordLabel
         '
-        Me.PasswordLabel.Location = New System.Drawing.Point(172, 81)
+        Me.PasswordLabel.Location = New System.Drawing.Point(172, 59)
         Me.PasswordLabel.Name = "PasswordLabel"
         Me.PasswordLabel.Size = New System.Drawing.Size(220, 23)
         Me.PasswordLabel.TabIndex = 2
         Me.PasswordLabel.Text = "&Password"
         Me.PasswordLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'UsernameTextBox
+        'tbPwd
         '
-        Me.UsernameTextBox.Location = New System.Drawing.Point(174, 44)
-        Me.UsernameTextBox.Name = "UsernameTextBox"
-        Me.UsernameTextBox.Size = New System.Drawing.Size(220, 20)
-        Me.UsernameTextBox.TabIndex = 1
-        '
-        'PasswordTextBox
-        '
-        Me.PasswordTextBox.Location = New System.Drawing.Point(174, 101)
-        Me.PasswordTextBox.Name = "PasswordTextBox"
-        Me.PasswordTextBox.PasswordChar = Microsoft.VisualBasic.ChrW(42)
-        Me.PasswordTextBox.Size = New System.Drawing.Size(220, 20)
-        Me.PasswordTextBox.TabIndex = 3
+        Me.tbPwd.Location = New System.Drawing.Point(174, 79)
+        Me.tbPwd.Name = "tbPwd"
+        Me.tbPwd.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.tbPwd.Size = New System.Drawing.Size(220, 20)
+        Me.tbPwd.TabIndex = 3
         '
         'OK
         '
@@ -100,18 +81,28 @@ Partial Class login
         Me.Cancel.TabIndex = 5
         Me.Cancel.Text = "&Cancel"
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(174, 105)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(89, 17)
+        Me.CheckBox1.TabIndex = 6
+        Me.CheckBox1.Text = "remember me"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'login
         '
         Me.AcceptButton = Me.OK
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel
         Me.ClientSize = New System.Drawing.Size(401, 192)
+        Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.OK)
-        Me.Controls.Add(Me.PasswordTextBox)
-        Me.Controls.Add(Me.UsernameTextBox)
+        Me.Controls.Add(Me.tbPwd)
         Me.Controls.Add(Me.PasswordLabel)
-        Me.Controls.Add(Me.UsernameLabel)
         Me.Controls.Add(Me.LogoPictureBox)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
@@ -126,4 +117,5 @@ Partial Class login
 
     End Sub
 
+    Friend WithEvents CheckBox1 As CheckBox
 End Class

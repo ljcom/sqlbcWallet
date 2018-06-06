@@ -54,66 +54,6 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property myED() As String
-            Get
-                Return CType(Me("myED"),String)
-            End Get
-            Set
-                Me("myED") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property myQT() As String
-            Get
-                Return CType(Me("myQT"),String)
-            End Get
-            Set
-                Me("myQT") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property userName() As String
-            Get
-                Return CType(Me("userName"),String)
-            End Get
-            Set
-                Me("userName") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property fullName() As String
-            Get
-                Return CType(Me("fullName"),String)
-            End Get
-            Set
-                Me("fullName") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property emailAddress() As String
-            Get
-                Return CType(Me("emailAddress"),String)
-            End Get
-            Set
-                Me("emailAddress") = value
-            End Set
-        End Property
-        
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("54.254.163.10:18371")>  _
@@ -125,8 +65,8 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=springroll;Initial Catalog=blockchain;user id=gov;pwd=ljcom2x;timeout"& _ 
-            "=600")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=springroll;Initial Catalog=blockchainv2;user id=gov;pwd=ljcom2x;timeo"& _ 
+            "ut=600")>  _
         Public ReadOnly Property odbc() As String
             Get
                 Return CType(Me("odbc"),String)
@@ -160,12 +100,60 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property pwd() As String
+        Public Property accountList() As String
             Get
-                Return CType(Me("pwd"),String)
+                Return CType(Me("accountList"),String)
             End Get
             Set
-                Me("pwd") = value
+                Me("accountList") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property curAccount() As String
+            Get
+                Return CType(Me("curAccount"),String)
+            End Get
+            Set
+                Me("curAccount") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property asFullNode() As Boolean
+            Get
+                Return CType(Me("asFullNode"),Boolean)
+            End Get
+            Set
+                Me("asFullNode") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property asProcessNode() As Boolean
+            Get
+                Return CType(Me("asProcessNode"),Boolean)
+            End Get
+            Set
+                Me("asProcessNode") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property NodeEDT() As String
+            Get
+                Return CType(Me("NodeEDT"),String)
+            End Get
+            Set
+                Me("NodeEDT") = value
             End Set
         End Property
     End Class

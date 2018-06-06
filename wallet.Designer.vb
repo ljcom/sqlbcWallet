@@ -22,6 +22,7 @@ Partial Class wallet
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tpBalance = New System.Windows.Forms.TabPage()
         Me.tbMyAddress = New System.Windows.Forms.TextBox()
@@ -48,17 +49,20 @@ Partial Class wallet
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lbContactList = New System.Windows.Forms.ListBox()
         Me.tpTrxList = New System.Windows.Forms.TabPage()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.bReceiveSave = New System.Windows.Forms.Button()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.TextBox9 = New System.Windows.Forms.TextBox()
-        Me.TextBox10 = New System.Windows.Forms.TextBox()
+        Me.tbAmount = New System.Windows.Forms.TextBox()
+        Me.tbNote = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.TextBox7 = New System.Windows.Forms.TextBox()
+        Me.tbAccount = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.lbTrxList = New System.Windows.Forms.ListBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.tpSettings = New System.Windows.Forms.TabPage()
+        Me.LabelPwd = New System.Windows.Forms.Label()
+        Me.tbImportPwd = New System.Windows.Forms.TextBox()
         Me.bNewAccountSave = New System.Windows.Forms.Button()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.tbNewAcountPwd = New System.Windows.Forms.TextBox()
@@ -77,14 +81,32 @@ Partial Class wallet
         Me.Label18 = New System.Windows.Forms.Label()
         Me.tbMyUserName = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.LabelPwd = New System.Windows.Forms.Label()
-        Me.tbImportPwd = New System.Windows.Forms.TextBox()
+        Me.tpNode = New System.Windows.Forms.TabPage()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.tbLog = New System.Windows.Forms.TextBox()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.tbNodePwd = New System.Windows.Forms.TextBox()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.tbNodeEDT = New System.Windows.Forms.TextBox()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.tbODBC = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.tbWellknownServer = New System.Windows.Forms.TextBox()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.cbAccountList = New System.Windows.Forms.ComboBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.TabControl1.SuspendLayout()
         Me.tpBalance.SuspendLayout()
         Me.tpSend.SuspendLayout()
         Me.tpTrxList.SuspendLayout()
         Me.tpSettings.SuspendLayout()
+        Me.tpNode.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -96,10 +118,11 @@ Partial Class wallet
         Me.TabControl1.Controls.Add(Me.tpSend)
         Me.TabControl1.Controls.Add(Me.tpTrxList)
         Me.TabControl1.Controls.Add(Me.tpSettings)
-        Me.TabControl1.Location = New System.Drawing.Point(12, 12)
+        Me.TabControl1.Controls.Add(Me.tpNode)
+        Me.TabControl1.Location = New System.Drawing.Point(12, 34)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(556, 353)
+        Me.TabControl1.Size = New System.Drawing.Size(556, 372)
         Me.TabControl1.TabIndex = 0
         '
         'tpBalance
@@ -111,7 +134,7 @@ Partial Class wallet
         Me.tpBalance.Controls.Add(Me.Label15)
         Me.tpBalance.Location = New System.Drawing.Point(4, 22)
         Me.tpBalance.Name = "tpBalance"
-        Me.tpBalance.Size = New System.Drawing.Size(548, 327)
+        Me.tpBalance.Size = New System.Drawing.Size(548, 346)
         Me.tpBalance.TabIndex = 2
         Me.tpBalance.Text = "Balance"
         Me.tpBalance.UseVisualStyleBackColor = True
@@ -190,7 +213,7 @@ Partial Class wallet
         Me.tpSend.Location = New System.Drawing.Point(4, 22)
         Me.tpSend.Name = "tpSend"
         Me.tpSend.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpSend.Size = New System.Drawing.Size(548, 327)
+        Me.tpSend.Size = New System.Drawing.Size(548, 346)
         Me.tpSend.TabIndex = 0
         Me.tpSend.Text = "Send"
         Me.tpSend.UseVisualStyleBackColor = True
@@ -198,7 +221,7 @@ Partial Class wallet
         'bCancelSend
         '
         Me.bCancelSend.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.bCancelSend.Location = New System.Drawing.Point(386, 294)
+        Me.bCancelSend.Location = New System.Drawing.Point(386, 313)
         Me.bCancelSend.Name = "bCancelSend"
         Me.bCancelSend.Size = New System.Drawing.Size(75, 23)
         Me.bCancelSend.TabIndex = 9
@@ -208,7 +231,7 @@ Partial Class wallet
         'bContactSave
         '
         Me.bContactSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.bContactSave.Location = New System.Drawing.Point(467, 187)
+        Me.bContactSave.Location = New System.Drawing.Point(467, 206)
         Me.bContactSave.Name = "bContactSave"
         Me.bContactSave.Size = New System.Drawing.Size(75, 23)
         Me.bContactSave.TabIndex = 5
@@ -218,7 +241,7 @@ Partial Class wallet
         'bContactNew
         '
         Me.bContactNew.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.bContactNew.Location = New System.Drawing.Point(386, 187)
+        Me.bContactNew.Location = New System.Drawing.Point(386, 206)
         Me.bContactNew.Name = "bContactNew"
         Me.bContactNew.Size = New System.Drawing.Size(75, 23)
         Me.bContactNew.TabIndex = 4
@@ -228,7 +251,7 @@ Partial Class wallet
         'bSend
         '
         Me.bSend.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.bSend.Location = New System.Drawing.Point(467, 294)
+        Me.bSend.Location = New System.Drawing.Point(467, 313)
         Me.bSend.Name = "bSend"
         Me.bSend.Size = New System.Drawing.Size(75, 23)
         Me.bSend.TabIndex = 8
@@ -239,7 +262,7 @@ Partial Class wallet
         '
         Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(7, 271)
+        Me.Label8.Location = New System.Drawing.Point(7, 290)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(43, 13)
         Me.Label8.TabIndex = 14
@@ -249,16 +272,17 @@ Partial Class wallet
         '
         Me.tbSendAmount.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tbSendAmount.Location = New System.Drawing.Point(86, 268)
+        Me.tbSendAmount.Location = New System.Drawing.Point(86, 287)
         Me.tbSendAmount.Name = "tbSendAmount"
         Me.tbSendAmount.Size = New System.Drawing.Size(456, 20)
         Me.tbSendAmount.TabIndex = 7
+        Me.tbSendAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'tbSendMessage
         '
         Me.tbSendMessage.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tbSendMessage.Location = New System.Drawing.Point(86, 216)
+        Me.tbSendMessage.Location = New System.Drawing.Point(86, 235)
         Me.tbSendMessage.Multiline = True
         Me.tbSendMessage.Name = "tbSendMessage"
         Me.tbSendMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -269,7 +293,7 @@ Partial Class wallet
         '
         Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(7, 219)
+        Me.Label7.Location = New System.Drawing.Point(7, 238)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(50, 13)
         Me.Label7.TabIndex = 11
@@ -279,7 +303,7 @@ Partial Class wallet
         '
         Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(7, 164)
+        Me.Label5.Location = New System.Drawing.Point(7, 183)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(73, 13)
         Me.Label5.TabIndex = 8
@@ -289,7 +313,7 @@ Partial Class wallet
         '
         Me.tbContactEmail.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tbContactEmail.Location = New System.Drawing.Point(86, 161)
+        Me.tbContactEmail.Location = New System.Drawing.Point(86, 180)
         Me.tbContactEmail.Name = "tbContactEmail"
         Me.tbContactEmail.Size = New System.Drawing.Size(456, 20)
         Me.tbContactEmail.TabIndex = 3
@@ -298,7 +322,7 @@ Partial Class wallet
         '
         Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(7, 138)
+        Me.Label4.Location = New System.Drawing.Point(7, 157)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(47, 13)
         Me.Label4.TabIndex = 6
@@ -308,7 +332,7 @@ Partial Class wallet
         '
         Me.tbContactAccount.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tbContactAccount.Location = New System.Drawing.Point(86, 135)
+        Me.tbContactAccount.Location = New System.Drawing.Point(86, 154)
         Me.tbContactAccount.Name = "tbContactAccount"
         Me.tbContactAccount.Size = New System.Drawing.Size(456, 20)
         Me.tbContactAccount.TabIndex = 2
@@ -317,7 +341,7 @@ Partial Class wallet
         '
         Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(6, 112)
+        Me.Label3.Location = New System.Drawing.Point(6, 131)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(35, 13)
         Me.Label3.TabIndex = 4
@@ -327,7 +351,7 @@ Partial Class wallet
         '
         Me.tbContactName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tbContactName.Location = New System.Drawing.Point(86, 109)
+        Me.tbContactName.Location = New System.Drawing.Point(86, 128)
         Me.tbContactName.Name = "tbContactName"
         Me.tbContactName.Size = New System.Drawing.Size(456, 20)
         Me.tbContactName.TabIndex = 1
@@ -337,7 +361,7 @@ Partial Class wallet
         Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(7, 93)
+        Me.Label2.Location = New System.Drawing.Point(7, 112)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(88, 13)
         Me.Label2.TabIndex = 2
@@ -361,7 +385,7 @@ Partial Class wallet
         Me.lbContactList.FormattingEnabled = True
         Me.lbContactList.Location = New System.Drawing.Point(6, 21)
         Me.lbContactList.Name = "lbContactList"
-        Me.lbContactList.Size = New System.Drawing.Size(536, 69)
+        Me.lbContactList.Size = New System.Drawing.Size(536, 82)
         Me.lbContactList.TabIndex = 0
         '
         'tpTrxList
@@ -369,21 +393,31 @@ Partial Class wallet
         Me.tpTrxList.Controls.Add(Me.Button1)
         Me.tpTrxList.Controls.Add(Me.bReceiveSave)
         Me.tpTrxList.Controls.Add(Me.Label13)
-        Me.tpTrxList.Controls.Add(Me.TextBox9)
-        Me.tpTrxList.Controls.Add(Me.TextBox10)
+        Me.tpTrxList.Controls.Add(Me.tbAmount)
+        Me.tpTrxList.Controls.Add(Me.tbNote)
         Me.tpTrxList.Controls.Add(Me.Label14)
         Me.tpTrxList.Controls.Add(Me.Label10)
-        Me.tpTrxList.Controls.Add(Me.TextBox7)
+        Me.tpTrxList.Controls.Add(Me.tbAccount)
         Me.tpTrxList.Controls.Add(Me.Label12)
         Me.tpTrxList.Controls.Add(Me.lbTrxList)
         Me.tpTrxList.Controls.Add(Me.Label6)
         Me.tpTrxList.Location = New System.Drawing.Point(4, 22)
         Me.tpTrxList.Name = "tpTrxList"
         Me.tpTrxList.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpTrxList.Size = New System.Drawing.Size(548, 327)
+        Me.tpTrxList.Size = New System.Drawing.Size(548, 346)
         Me.tpTrxList.TabIndex = 1
         Me.tpTrxList.Text = "Transaction"
         Me.tpTrxList.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button1.Location = New System.Drawing.Point(466, 161)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 2
+        Me.Button1.Text = "Refresh"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'bReceiveSave
         '
@@ -405,26 +439,27 @@ Partial Class wallet
         Me.Label13.TabIndex = 30
         Me.Label13.Text = "Amount"
         '
-        'TextBox9
+        'tbAmount
         '
-        Me.TextBox9.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.tbAmount.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox9.Location = New System.Drawing.Point(85, 268)
-        Me.TextBox9.Name = "TextBox9"
-        Me.TextBox9.ReadOnly = True
-        Me.TextBox9.Size = New System.Drawing.Size(457, 20)
-        Me.TextBox9.TabIndex = 6
+        Me.tbAmount.Location = New System.Drawing.Point(85, 268)
+        Me.tbAmount.Name = "tbAmount"
+        Me.tbAmount.ReadOnly = True
+        Me.tbAmount.Size = New System.Drawing.Size(457, 20)
+        Me.tbAmount.TabIndex = 6
+        Me.tbAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'TextBox10
+        'tbNote
         '
-        Me.TextBox10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.tbNote.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox10.Location = New System.Drawing.Point(85, 216)
-        Me.TextBox10.Multiline = True
-        Me.TextBox10.Name = "TextBox10"
-        Me.TextBox10.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TextBox10.Size = New System.Drawing.Size(457, 46)
-        Me.TextBox10.TabIndex = 5
+        Me.tbNote.Location = New System.Drawing.Point(85, 216)
+        Me.tbNote.Multiline = True
+        Me.tbNote.Name = "tbNote"
+        Me.tbNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.tbNote.Size = New System.Drawing.Size(457, 46)
+        Me.tbNote.TabIndex = 5
         '
         'Label14
         '
@@ -446,15 +481,15 @@ Partial Class wallet
         Me.Label10.TabIndex = 22
         Me.Label10.Text = "Account"
         '
-        'TextBox7
+        'tbAccount
         '
-        Me.TextBox7.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.tbAccount.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox7.Location = New System.Drawing.Point(85, 190)
-        Me.TextBox7.Name = "TextBox7"
-        Me.TextBox7.ReadOnly = True
-        Me.TextBox7.Size = New System.Drawing.Size(456, 20)
-        Me.TextBox7.TabIndex = 3
+        Me.tbAccount.Location = New System.Drawing.Point(85, 190)
+        Me.tbAccount.Name = "tbAccount"
+        Me.tbAccount.ReadOnly = True
+        Me.tbAccount.Size = New System.Drawing.Size(456, 20)
+        Me.tbAccount.TabIndex = 3
         '
         'Label12
         '
@@ -473,7 +508,6 @@ Partial Class wallet
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lbTrxList.FormattingEnabled = True
-        Me.lbTrxList.Items.AddRange(New Object() {"account - 10000"})
         Me.lbTrxList.Location = New System.Drawing.Point(6, 21)
         Me.lbTrxList.Name = "lbTrxList"
         Me.lbTrxList.Size = New System.Drawing.Size(536, 134)
@@ -513,10 +547,29 @@ Partial Class wallet
         Me.tpSettings.Controls.Add(Me.Label17)
         Me.tpSettings.Location = New System.Drawing.Point(4, 22)
         Me.tpSettings.Name = "tpSettings"
-        Me.tpSettings.Size = New System.Drawing.Size(548, 327)
+        Me.tpSettings.Size = New System.Drawing.Size(548, 346)
         Me.tpSettings.TabIndex = 3
         Me.tpSettings.Text = "Settings"
         Me.tpSettings.UseVisualStyleBackColor = True
+        '
+        'LabelPwd
+        '
+        Me.LabelPwd.AutoSize = True
+        Me.LabelPwd.Location = New System.Drawing.Point(6, 195)
+        Me.LabelPwd.Name = "LabelPwd"
+        Me.LabelPwd.Size = New System.Drawing.Size(53, 13)
+        Me.LabelPwd.TabIndex = 19
+        Me.LabelPwd.Text = "Password"
+        '
+        'tbImportPwd
+        '
+        Me.tbImportPwd.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbImportPwd.Location = New System.Drawing.Point(86, 192)
+        Me.tbImportPwd.Name = "tbImportPwd"
+        Me.tbImportPwd.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.tbImportPwd.Size = New System.Drawing.Size(450, 20)
+        Me.tbImportPwd.TabIndex = 14
         '
         'bNewAccountSave
         '
@@ -689,40 +742,214 @@ Partial Class wallet
         Me.Label17.TabIndex = 0
         Me.Label17.Text = "My Profile"
         '
-        'Button1
+        'tpNode
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(466, 161)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Refresh"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.tpNode.Controls.Add(Me.Label30)
+        Me.tpNode.Controls.Add(Me.tbLog)
+        Me.tpNode.Controls.Add(Me.Label29)
+        Me.tpNode.Controls.Add(Me.tbNodePwd)
+        Me.tpNode.Controls.Add(Me.Label28)
+        Me.tpNode.Controls.Add(Me.tbNodeEDT)
+        Me.tpNode.Controls.Add(Me.Button4)
+        Me.tpNode.Controls.Add(Me.CheckBox2)
+        Me.tpNode.Controls.Add(Me.CheckBox1)
+        Me.tpNode.Controls.Add(Me.Button3)
+        Me.tpNode.Controls.Add(Me.Button2)
+        Me.tpNode.Controls.Add(Me.Label27)
+        Me.tpNode.Controls.Add(Me.tbODBC)
+        Me.tpNode.Controls.Add(Me.Label11)
+        Me.tpNode.Controls.Add(Me.tbWellknownServer)
+        Me.tpNode.Controls.Add(Me.Label26)
+        Me.tpNode.Location = New System.Drawing.Point(4, 22)
+        Me.tpNode.Name = "tpNode"
+        Me.tpNode.Size = New System.Drawing.Size(548, 346)
+        Me.tpNode.TabIndex = 4
+        Me.tpNode.Text = "As Node"
+        Me.tpNode.UseVisualStyleBackColor = True
         '
-        'LabelPwd
+        'Label30
         '
-        Me.LabelPwd.AutoSize = True
-        Me.LabelPwd.Location = New System.Drawing.Point(6, 195)
-        Me.LabelPwd.Name = "LabelPwd"
-        Me.LabelPwd.Size = New System.Drawing.Size(53, 13)
-        Me.LabelPwd.TabIndex = 19
-        Me.LabelPwd.Text = "Password"
+        Me.Label30.AutoSize = True
+        Me.Label30.Location = New System.Drawing.Point(6, 192)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(72, 13)
+        Me.Label30.TabIndex = 15
+        Me.Label30.Text = "Starter Server"
         '
-        'tbImportPwd
+        'tbLog
         '
-        Me.tbImportPwd.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.tbLog.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tbImportPwd.Location = New System.Drawing.Point(86, 192)
-        Me.tbImportPwd.Name = "tbImportPwd"
-        Me.tbImportPwd.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.tbImportPwd.Size = New System.Drawing.Size(450, 20)
-        Me.tbImportPwd.TabIndex = 14
+        Me.tbLog.Location = New System.Drawing.Point(9, 208)
+        Me.tbLog.Multiline = True
+        Me.tbLog.Name = "tbLog"
+        Me.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.tbLog.Size = New System.Drawing.Size(527, 124)
+        Me.tbLog.TabIndex = 14
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Location = New System.Drawing.Point(6, 102)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(53, 13)
+        Me.Label29.TabIndex = 7
+        Me.Label29.Text = "Password"
+        '
+        'tbNodePwd
+        '
+        Me.tbNodePwd.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbNodePwd.Location = New System.Drawing.Point(86, 99)
+        Me.tbNodePwd.Name = "tbNodePwd"
+        Me.tbNodePwd.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.tbNodePwd.Size = New System.Drawing.Size(450, 20)
+        Me.tbNodePwd.TabIndex = 8
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Location = New System.Drawing.Point(6, 76)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(50, 13)
+        Me.Label28.TabIndex = 5
+        Me.Label28.Text = "Node PK"
+        '
+        'tbNodeEDT
+        '
+        Me.tbNodeEDT.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbNodeEDT.Location = New System.Drawing.Point(86, 73)
+        Me.tbNodeEDT.Name = "tbNodeEDT"
+        Me.tbNodeEDT.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.tbNodeEDT.Size = New System.Drawing.Size(450, 20)
+        Me.tbNodeEDT.TabIndex = 6
+        '
+        'Button4
+        '
+        Me.Button4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button4.Location = New System.Drawing.Point(461, 125)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(75, 23)
+        Me.Button4.TabIndex = 11
+        Me.Button4.Text = "Save"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Enabled = False
+        Me.CheckBox2.Location = New System.Drawing.Point(206, 125)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(150, 17)
+        Me.CheckBox2.TabIndex = 10
+        Me.CheckBox2.Text = "Work as Processing Node"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(86, 125)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(114, 17)
+        Me.CheckBox1.TabIndex = 9
+        Me.CheckBox1.Text = "Work as Full Node"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(242, 154)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(150, 23)
+        Me.Button3.TabIndex = 13
+        Me.Button3.Text = "Start Node"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(86, 154)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(150, 23)
+        Me.Button2.TabIndex = 12
+        Me.Button2.Text = "Install LocalDB"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(6, 50)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(66, 13)
+        Me.Label27.TabIndex = 6
+        Me.Label27.Text = "Local ODBC"
+        '
+        'tbODBC
+        '
+        Me.tbODBC.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbODBC.Location = New System.Drawing.Point(86, 47)
+        Me.tbODBC.Name = "tbODBC"
+        Me.tbODBC.Size = New System.Drawing.Size(450, 20)
+        Me.tbODBC.TabIndex = 4
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(6, 24)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(72, 13)
+        Me.Label11.TabIndex = 1
+        Me.Label11.Text = "Starter Server"
+        '
+        'tbWellknownServer
+        '
+        Me.tbWellknownServer.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tbWellknownServer.Location = New System.Drawing.Point(86, 21)
+        Me.tbWellknownServer.Name = "tbWellknownServer"
+        Me.tbWellknownServer.Size = New System.Drawing.Size(450, 20)
+        Me.tbWellknownServer.TabIndex = 2
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label26.Location = New System.Drawing.Point(6, 5)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(81, 13)
+        Me.Label26.TabIndex = 0
+        Me.Label26.Text = "Node Setting"
+        '
+        'cbAccountList
+        '
+        Me.cbAccountList.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cbAccountList.FormattingEnabled = True
+        Me.cbAccountList.Location = New System.Drawing.Point(296, 7)
+        Me.cbAccountList.Name = "cbAccountList"
+        Me.cbAccountList.Size = New System.Drawing.Size(272, 21)
+        Me.cbAccountList.TabIndex = 1
+        '
+        'Label9
+        '
+        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(210, 10)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(80, 13)
+        Me.Label9.TabIndex = 2
+        Me.Label9.Text = "Select Account"
+        '
+        'Timer1
+        '
         '
         'wallet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(580, 377)
+        Me.ClientSize = New System.Drawing.Size(580, 418)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.cbAccountList)
         Me.Controls.Add(Me.TabControl1)
         Me.Name = "wallet"
         Me.Text = "Wallet"
@@ -735,7 +962,10 @@ Partial Class wallet
         Me.tpTrxList.PerformLayout()
         Me.tpSettings.ResumeLayout(False)
         Me.tpSettings.PerformLayout()
+        Me.tpNode.ResumeLayout(False)
+        Me.tpNode.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -763,11 +993,11 @@ Partial Class wallet
     Friend WithEvents bCancelSend As Button
     Friend WithEvents bReceiveSave As Button
     Friend WithEvents Label13 As Label
-    Friend WithEvents TextBox9 As TextBox
-    Friend WithEvents TextBox10 As TextBox
+    Friend WithEvents tbAmount As TextBox
+    Friend WithEvents tbNote As TextBox
     Friend WithEvents Label14 As Label
     Friend WithEvents Label10 As Label
-    Friend WithEvents TextBox7 As TextBox
+    Friend WithEvents tbAccount As TextBox
     Friend WithEvents Label12 As Label
     Friend WithEvents lbTrxList As ListBox
     Friend WithEvents Label6 As Label
@@ -797,4 +1027,24 @@ Partial Class wallet
     Friend WithEvents Button1 As Button
     Friend WithEvents LabelPwd As Label
     Friend WithEvents tbImportPwd As TextBox
+    Friend WithEvents cbAccountList As ComboBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents tpNode As TabPage
+    Friend WithEvents Label27 As Label
+    Friend WithEvents tbODBC As TextBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents tbWellknownServer As TextBox
+    Friend WithEvents Label26 As Label
+    Friend WithEvents Button4 As Button
+    Friend WithEvents CheckBox2 As CheckBox
+    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents Button3 As Button
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Label29 As Label
+    Friend WithEvents tbNodePwd As TextBox
+    Friend WithEvents Label28 As Label
+    Friend WithEvents tbNodeEDT As TextBox
+    Friend WithEvents Timer1 As Timer
+    Friend WithEvents Label30 As Label
+    Friend WithEvents tbLog As TextBox
 End Class
