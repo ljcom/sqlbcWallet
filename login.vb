@@ -16,7 +16,7 @@ Public Class login
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK.Click
         Dim pwd = Me.tbPwd.Text
         Dim edt = curEDT
-        Dim odbc = My.Settings.odbc
+        Dim odbc = "Data Source=(localdb)\operahouse;Initial Catalog=blockchainv2;Integrated Security=True" 'My.Settings.odbc
 
         If pwd <> "" Then
             Dim sqlstr = "exec wallet_login 'live', '" & edt & "', '" & pwd & "', @issilent=0"

@@ -18,13 +18,24 @@ Public Class wallet
     Private Const folderTemp = "temp"
     Private Const folderData = "data"
     Private coreDB = "blockchainv2"
+    Private isDBActive = False
 
     'Private eventHandled As Boolean = False
     Private Sub wallet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         startNode()
 
         'reloadData()
-        If pipename <> "" Then
+        If Not (pipename <> "" And isDBActive) Then
+            If MessageBox.Show(Me, "We are about to install and setup localDB. Do you want to continue?", "Install", vbYesNo, vbQuestion) = vbYes Then
+                installInstance()
+                Dim nodeAddress = My.Settings.wellKnownAddress
+                syncLocalScript("exec [dbo].[node_reqTrx] '" & nodeAddress & "'", coreDB, pipename)
+            Else
+                End
+            End If
+        End If
+
+        If pipename <> "" And isDBActive Then
             getAccountList()
 
             Dim c = My.Settings.curAccount
@@ -34,12 +45,8 @@ Public Class wallet
                 'reloadData()
             End If
         Else
-            Dim x
-            If MessageBox.Show(x, "We are about to install and setup localDB. Do you want to continue?", "Install",, vbYesNo) = vbYes Then
-                installInstance()
-            End If
+            End
         End If
-
     End Sub
     Sub startNode()
         Me.Button2.Enabled = True
@@ -54,6 +61,7 @@ Public Class wallet
             If syncLocalScript("use " & coreDB, coreDB, pipename) Then
                 Me.Button2.Enabled = False
                 Me.Button3.Enabled = True
+                isDBActive = True
             End If
         End If
     End Sub
@@ -64,20 +72,23 @@ Public Class wallet
         'My.Settings.emailAddress = Me.tbMyEmail.Text
         'My.Settings.myQT = Me.tbMyAddress.Text
         'My.Settings.Save()
+        Cursor = Cursors.WaitCursor
         saveAccount(Me.tbMyUserName.Text, Me.tbMyFullName.Text, Me.tbMyEmail.Text, "", "")
-
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub bImportSave_Click(sender As Object, e As EventArgs) Handles bImportSave.Click
+        Cursor = Cursors.WaitCursor
         saveAccount("", "", "", Me.tbImportED.Text, Me.tbImportPwd.Text)
 
         Me.tbImportED.Text = ""
         Me.tbImportPwd.Text = ""
 
         cbAccountList.SelectedIndex = cbAccountList.FindString(currentAccount)
+        Cursor = Cursors.Default
     End Sub
     Sub saveAccount(userName As String, accountName As String, email As String, edt As String, pwd1 As String)
-        Dim odbc = My.Settings.odbc
+        Dim odbc = "Data Source=(localdb)\operahouse;Initial Catalog=blockchainv2;Integrated Security=True" 'My.Settings.odbc
         If pwd1 <> "" Then
             Dim sqlstr = "exec wallet_login 'live', '" & edt & "', '" & pwd1 & "', @issilent=0"
             Dim d As DataSet = SelectSqlSrvRows(sqlstr, odbc)
@@ -126,7 +137,8 @@ Public Class wallet
 
     End Sub
     Private Sub bNewAccountSave_Click(sender As Object, e As EventArgs) Handles bNewAccountSave.Click
-        Dim odbc = My.Settings.odbc
+        Cursor = Cursors.WaitCursor
+        Dim odbc = "Data Source=(localdb)\operahouse;Initial Catalog=blockchainv2;Integrated Security=True" 'My.Settings.odbc
         Dim pwd = Me.tbNewAcountPwd.Text
         If pwd <> "" Then
             'Dim sqlstr = "declare @ed nvarchar(max); exec wallet_createAccount 'live', '" & pwd & "', @ed output; select @ed"
@@ -139,15 +151,15 @@ Public Class wallet
                 'My.Settings.myQT = qt
                 'My.Settings.pwd = pwd
                 My.Settings.Save()
-                reloadData()
+                reloadData(True)
             End If
             Me.tbNewAcountPwd.Text = ""
         Else
             MessageBox.Show("Please put a password before continue!")
         End If
-
+        Cursor = Cursors.Default
     End Sub
-    Sub reloadData()
+    Sub reloadData(isFull As Boolean)
         'If GetWin32Process("", curAccount.sqlId) <> curAccount.sqlId Then
         Dim curAccount As AccountType = accountList(currentAccount)
 
@@ -167,8 +179,8 @@ Public Class wallet
 
         getContactList()
 
-        getWalletStatus()
-        getWalletHistory()
+        getWalletStatus(isFull)
+        getWalletHistory(isFull)
 
 
     End Sub
@@ -251,16 +263,16 @@ Public Class wallet
         'End If
         'End If
     End Sub
-    Sub getWalletStatus()
+    Sub getWalletStatus(isFull As Boolean)
         Dim trxValue = 0
-        Dim odbc = My.Settings.odbc
+        Dim odbc = "Data Source=(localdb)\operahouse;Initial Catalog=blockchainv2;Integrated Security=True" 'My.Settings.odbc
         'Dim pwd = My.Settings.pwd
         Dim pwd = currentPassword
         If pwd <> "" Then
             'Dim sqlstr = "declare @ed nvarchar(max); exec wallet_createAccount 'live', '" & pwd & "', @ed output; select @ed"
             'Dim ed = My.Settings.myEDT
             Dim ed = accountList(currentAccount).AccountEDT
-            Dim sqlstr = "exec wallet_status null, '" & ed & "', '" & pwd & "', @mode=0"
+            Dim sqlstr = "exec wallet_status null, '" & ed & "', '" & pwd & "', @mode=0, @isfull=" & isFull
             Dim ds As DataSet = SelectSqlSrvRows(sqlstr, odbc)
             If ds.Tables.Count > 0 AndAlso ds.Tables(0).Rows.Count > 0 Then
                 For Each x As DataRow In ds.Tables(0).Rows
@@ -270,8 +282,8 @@ Public Class wallet
         End If
         Me.tbBalance.Text = Format(trxValue, "#,###,##0")
     End Sub
-    Sub getWalletHistory()
-        Dim odbc = My.Settings.odbc
+    Sub getWalletHistory(isFull As Boolean)
+        Dim odbc = "Data Source=(localdb)\operahouse;Initial Catalog=blockchainv2;Integrated Security=True" 'My.Settings.odbc
         'Dim pwd = My.Settings.pwd
         Dim pwd = currentPassword
         If pwd <> "" Then
@@ -280,7 +292,7 @@ Public Class wallet
             Me.lbTrxList.Items.Clear()
             trxList = New Dictionary(Of String, TrxType)
             Dim ed = accountList(currentAccount).AccountEDT
-            Dim sqlstr = "exec wallet_status null, '" & ed & "', '" & pwd & "', @mode=1"
+            Dim sqlstr = "exec wallet_status null, '" & ed & "', '" & pwd & "', @mode=1, @isFull=" & isFull
             Dim ds As DataSet = SelectSqlSrvRows(sqlstr, odbc)
             If ds.Tables.Count > 0 AndAlso ds.Tables(0).Rows.Count > 0 Then
                 For Each x As DataRow In ds.Tables(0).Rows
@@ -312,7 +324,7 @@ Public Class wallet
     End Sub
     Sub getNodeSetting()
         Me.tbWellknownServer.Text = My.Settings.wellKnownAddress
-        Me.tbODBC.Text = My.Settings.odbc
+        Me.tbODBC.Text = "Data Source=(localdb)\operahouse;Initial Catalog=blockchainv2;Integrated Security=True" 'My.Settings.odbc
         Me.tbNodeEDT.Text = "***********************************"
         Me.tbNodePwd.Text = ""
         Me.CheckBox1.Checked = My.Settings.asFullNode
@@ -323,14 +335,19 @@ Public Class wallet
 
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
-        getWalletHistory()
+        Cursor = Cursors.WaitCursor
+        getWalletHistory(True)
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub bRefresh_Click(sender As Object, e As EventArgs) Handles bRefresh.Click
-        reloadData()
+        Cursor = Cursors.WaitCursor
+        reloadData(True)
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub bContactSave_Click(sender As Object, e As EventArgs) Handles bContactSave.Click
+        Cursor = Cursors.WaitCursor
         Dim isExists = False
         Dim contactAccount = Me.tbContactAccount.Text
         Dim contactName = Me.tbContactName.Text
@@ -361,7 +378,7 @@ Public Class wallet
         Else
             MessageBox.Show("Please complete all data before saving!")
         End If
-
+        Cursor = Cursors.Default
 
     End Sub
 
@@ -382,30 +399,40 @@ Public Class wallet
     End Sub
 
     Private Sub bSend_Click(sender As Object, e As EventArgs) Handles bSend.Click
-        Dim odbc = My.Settings.odbc
-        Dim pwd = Me.currentPassword
-        If pwd <> "" Then
-            'Dim sqlstr = "declare @ed nvarchar(max); exec createWallet 'live', '" & pwd & "', @ed output; select @ed"
-            'Dim ed = My.Settings.myEDT
-            Dim ed = accountList(currentAccount).AccountEDT
-            Dim sqlstr = "exec wallet_sendAsset null, '" & assetGUID & "', '" & Me.tbContactAccount.Text & "', " & Me.tbSendAmount.Text & ", 2, '" & Me.tbSendMessage.Text & "', '" & ed & "', '" & pwd & "'"
+        If Me.tbSendMessage.Text <> "" Then
 
-            Dim r = runSQLwithResult(sqlstr, odbc)
-            If r <> "" Then
-                MessageBox.Show(r)
+            Dim odbc = "Data Source=(localdb)\operahouse;Initial Catalog=blockchainv2;Integrated Security=True" 'My.Settings.odbc
+            Dim pwd = Me.currentPassword
+            If pwd <> "" Then
+                Cursor = Cursors.WaitCursor
+                'Dim sqlstr = "declare @ed nvarchar(max); exec createWallet 'live', '" & pwd & "', @ed output; select @ed"
+                'Dim ed = My.Settings.myEDT
+                Dim ed = accountList(currentAccount).AccountEDT
+                Dim sqlstr = "exec wallet_sendAsset null, '" & assetGUID & "', '" & Me.tbContactAccount.Text & "', " & Me.tbSendAmount.Text & ", 2, '" & Me.tbSendMessage.Text & "', 'live', '" & ed & "', '" & pwd & "'"
+
+                Dim r = runSQLwithResult(sqlstr, odbc)
+                If r <> "" Then
+                    MessageBox.Show(r)
+                Else
+                    Me.tbSendAmount.Text = Format(0, "#,##0")
+                    Me.tbSendMessage.Text = ""
+                    getWalletStatus(True)
+                    getWalletHistory(True)
+                End If
+                Cursor = Cursors.Default
             Else
-                Me.tbSendAmount.Text = Format(0, "#,##0")
-                getWalletStatus()
-                getWalletHistory()
+                MessageBox.Show("Please put a password to continue!")
             End If
+
         Else
-            MessageBox.Show("Please put a password before continue!")
+            MessageBox.Show("Please put your message to continue!")
         End If
     End Sub
 
     Private Sub cbAccountList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbAccountList.SelectedIndexChanged
         Dim c = Me.cbAccountList.SelectedItem
         If currentAccount <> c Then
+            Dim oldPassword = currentPassword
             currentPassword = ""
             My.Forms.login.curEDT = accountList(c).AccountEDT
             If currentPassword = "" Then My.Forms.login.ShowDialog()
@@ -415,11 +442,12 @@ Public Class wallet
                     My.Settings.curAccount = currentAccount
                     My.Settings.Save()
                     'Me.lbContactList.Items.Clear()
-                    reloadData()
+                    reloadData(False)
                 End If
             Else
                 If currentAccount <> "" Then
                     cbAccountList.SelectedIndex = cbAccountList.FindString(currentAccount)
+                    currentPassword = oldPassword
                 Else
                     Me.Close()
                 End If
@@ -588,8 +616,9 @@ Public Class wallet
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        installInstance
-
+        Cursor = Cursors.WaitCursor
+        installInstance()
+        Cursor = Cursors.Default
     End Sub
     Sub installInstance()
         'If isLocaldb Then
@@ -801,6 +830,10 @@ Public Class wallet
         SetLog(sOutput)
     End Sub
     Sub unZip(zipPath, extractPath)
+        File.Delete(extractPath & "\crypto.dll")
+        File.Delete(extractPath & "\cryptoSQL.dll")
+        File.Delete(extractPath & "\webRequest.dll")
+        File.Delete(extractPath & "\script.sql")
         ZipFile.ExtractToDirectory(zipPath, extractPath)
     End Sub
     Function runScript(url, pipename, scriptFile, db) As Boolean
@@ -827,4 +860,8 @@ Public Class wallet
         End If
         Return r
     End Function
+
+    Private Sub bReceiveSave_Click(sender As Object, e As EventArgs) Handles bReceiveSave.Click
+
+    End Sub
 End Class
