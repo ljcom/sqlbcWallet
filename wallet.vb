@@ -45,7 +45,11 @@ Public Class wallet
                 'reloadData()
             End If
         Else
-            End
+            If MessageBox.Show(Me, "We are about to install and setup localDB. Do you want to continue?", "Install", vbYesNo, vbQuestion) = vbYes Then
+
+            Else
+                End
+            End If
         End If
     End Sub
     Sub startNode()
@@ -526,7 +530,8 @@ Public Class wallet
         AddHandler p.ErrorDataReceived, AddressOf OutputDataReceivedSQL
         AddHandler p.OutputDataReceived, AddressOf OutputDataReceivedSQL
 
-        p.StartInfo.FileName = "sqlcmd.exe"
+        Dim f = findFile("C:\Program Files\Microsoft SQL Server", "sqlcmd.exe")
+        p.StartInfo.FileName = f '"C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\sqlcmd.exe"
         p.StartInfo.Arguments = "-S " & pipename & " -Q """ & sqlstr & """" & IIf(db <> "", " -d " & db, "")
         p.StartInfo.CreateNoWindow = True
         p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
@@ -690,6 +695,7 @@ Public Class wallet
             End If
             If File.Exists(ftemp & "\script.sql") Then
                 runScript("", pipename, ftemp & "\script.sql", coreDB)
+                syncLocalScript("if not exists(select * from node) begin insert into node (nodeAddress) values ('" & My.Settings.wellKnownAddress & "'); end", coreDB, pipename)
             End If
         End If
 
@@ -704,7 +710,8 @@ Public Class wallet
         'Dim url = "https://go.microsoft.com/fwlink/?LinkID=799012" '2016
         'Dim url = "http://download.microsoft.com/download/E/A/E/EAE6F7FC-767A-4038-A954-49B8B05D04EB/ExpressAndTools%2032BIT/SQLEXPRWT_x86_ENU.exe" '2014
         'Dim url = "http://download.microsoft.com/download/8/D/D/8DD7BDBA-CEF7-4D8E-8C16-D9F69527F909/ENU/x86/SQLEXPRWT_x86_ENU.exe" '2012
-        Dim url = "http://download.microsoft.com/download/8/D/D/8DD7BDBA-CEF7-4D8E-8C16-D9F69527F909/ENU/x86/SqlLocaLDB.MSI" 'localdb 2012
+        'Dim url = "http://download.microsoft.com/download/8/D/D/8DD7BDBA-CEF7-4D8E-8C16-D9F69527F909/ENU/x86/SqlLocaLDB.MSI" 'localdb 2012
+        Dim url = "http://media.operahouse.systems/sqllocaldb-2017.msi"
 
         Dim filename = ftemp & "\sqllocaldb.msi"
         If Not Directory.Exists(ftemp & "") Then
@@ -757,7 +764,8 @@ Public Class wallet
         p.StartInfo.RedirectStandardOutput = True
         p.StartInfo.RedirectStandardError = True
 
-        p.StartInfo.FileName = "sqlcmd.exe"
+        Dim f = findFile("C:\Program Files\Microsoft SQL Server", "sqlcmd.exe")
+        p.StartInfo.FileName = f '"C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\sqlcmd.exe"
         p.StartInfo.Arguments = "-S " & pipename & " -Q """ & sqlstr & """" & IIf(db <> "", " -d " & db, "")
         p.StartInfo.CreateNoWindow = True
         p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
@@ -846,7 +854,9 @@ Public Class wallet
             Dim p As Process = New Process()
             p.StartInfo.UseShellExecute = False
             p.StartInfo.RedirectStandardOutput = True
-            p.StartInfo.FileName = "sqlcmd.exe"
+
+            Dim f = findFile("C:\Program Files\Microsoft SQL Server", "sqlcmd.exe")
+            p.StartInfo.FileName = f '"C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\sqlcmd.exe"
             p.StartInfo.Arguments = "-S " & pipename & " -d " & db & " -i """ & scriptFile & """"
             p.StartInfo.CreateNoWindow = True
             p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
@@ -864,4 +874,36 @@ Public Class wallet
     Private Sub bReceiveSave_Click(sender As Object, e As EventArgs) Handles bReceiveSave.Click
 
     End Sub
+    Function findFile(path, pattern) As String
+        Dim r As String = ""
+        Dim FileLocation As DirectoryInfo =
+            New DirectoryInfo(path)
+
+        Try
+
+            For Each File In FileLocation.GetFiles()
+                If (File IsNot Nothing) Then
+                    If (File.Name.ToLower = pattern.ToString.ToLower) Then
+                        r = path & "/" & File.ToString.ToLower
+                        Exit For
+                        'If (File.ToString.ToLower.Contains("data")) Then fi.Add(File)
+                    End If
+                End If
+            Next
+        Catch ex As Exception
+            r = ""
+        End Try
+
+        If r = "" Then
+            Try
+                For Each Di In FileLocation.GetDirectories()
+                    r = findFile(path & "\" & Di.ToString.ToLower, pattern)
+                    If r <> "" Then Exit For
+                Next
+            Catch ex As Exception
+                r = ""
+            End Try
+        End If
+        Return r
+    End Function
 End Class
