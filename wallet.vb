@@ -88,7 +88,8 @@ Public Class wallet
         Me.tbImportED.Text = ""
         Me.tbImportPwd.Text = ""
 
-        cbAccountList.SelectedIndex = cbAccountList.FindString(currentAccount)
+        'cbAccountList.SelectedIndex = cbAccountList.FindString(currentAccount)
+        getAccountList()
         Cursor = Cursors.Default
     End Sub
     Sub saveAccount(userName As String, accountName As String, email As String, edt As String, pwd1 As String)
@@ -154,8 +155,13 @@ Public Class wallet
                 'My.Settings.myEDT = ed
                 'My.Settings.myQT = qt
                 'My.Settings.pwd = pwd
-                My.Settings.Save()
-                reloadData(True)
+                'My.Settings.Save()
+
+                'getAccountList()
+                'reloadData(True)
+                saveAccount("", "", "", ed, pwd)
+                getAccountList()
+                'cbAccountList.SelectedIndex = cbAccountList.FindString(currentAccount)
             End If
             Me.tbNewAcountPwd.Text = ""
         Else
@@ -906,4 +912,50 @@ Public Class wallet
         End If
         Return r
     End Function
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        Cursor = Cursors.WaitCursor
+        delAccount(Me.tbMyUserName.Text)
+        Cursor = Cursors.Default
+    End Sub
+    Sub delAccount(userName As String)
+        Dim odbc = "Data Source=(localdb)\operahouse;Initial Catalog=blockchainv2;Integrated Security=True" 'My.Settings.odbc
+
+        Dim json = "{""accountList"":[%item%]}"
+        For Each j In accountList
+            If j.Key.ToString <> Me.tbMyUserName.Text Then
+                Dim curAccount = accountList(j.Key.ToString)
+                Dim cljson = "[%citem%]"
+                Dim curCL = curAccount.contactJSON
+                For Each k In curCL
+                    Dim curContact = curCL(k.Key.ToString)
+                    Dim kx = "{""contactQT"":""" & curContact.contactQT & """,""contactName"":""" & curContact.ContactName & """,""emailAddress"":""" & curContact.EmailAddress & """}, %citem%"
+                    cljson = cljson.Replace("%citem%", kx)
+                Next
+                cljson = cljson.Replace(", %citem%", "")
+                cljson = cljson.Replace("%citem%", "")
+
+                Dim jx = "{""userName"":""" & curAccount.UserName & """,""accountName"":""" & curAccount.AccountName & """,""accountEDT"":""" & curAccount.AccountEDT & """,""accountQT"":""" & curAccount.AccountQT & """, contactJSON:" & cljson & "}, %item%"
+                json = json.Replace("%item%", jx)
+
+            End If
+        Next
+        json = json.Replace(", %item%", "")
+        json = json.Replace("%item%", "")
+        My.Settings.accountList = json
+
+        My.Settings.Save()
+        Me.tbMyUserName.Text = ""
+        Me.tbMyFullName.Text = ""
+        Me.tbMyEmail.Text = ""
+        Me.tbMyAddress.Text = ""
+        currentAccount = ""
+        accountList.Remove(userName)
+
+        getAccountList()
+        Me.cbAccountList.SelectedIndex = cbAccountList.FindString(Me.cbAccountList.Items(0))
+        'MessageBox.Show("Import Success")
+
+
+    End Sub
 End Class

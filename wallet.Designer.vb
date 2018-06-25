@@ -101,6 +101,7 @@ Partial Class wallet
         Me.cbAccountList = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.Button5 = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpBalance.SuspendLayout()
         Me.tpSend.SuspendLayout()
@@ -525,6 +526,7 @@ Partial Class wallet
         '
         'tpSettings
         '
+        Me.tpSettings.Controls.Add(Me.Button5)
         Me.tpSettings.Controls.Add(Me.LabelPwd)
         Me.tpSettings.Controls.Add(Me.tbImportPwd)
         Me.tpSettings.Controls.Add(Me.bNewAccountSave)
@@ -943,6 +945,16 @@ Partial Class wallet
         'Timer1
         '
         '
+        'Button5
+        '
+        Me.Button5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button5.Location = New System.Drawing.Point(380, 125)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(75, 23)
+        Me.Button5.TabIndex = 20
+        Me.Button5.Text = "Delete"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
         'wallet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1047,4 +1059,5 @@ Partial Class wallet
     Friend WithEvents Timer1 As Timer
     Friend WithEvents Label30 As Label
     Friend WithEvents tbLog As TextBox
+    Friend WithEvents Button5 As Button
 End Class
