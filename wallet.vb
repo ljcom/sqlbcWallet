@@ -43,6 +43,7 @@ Public Class wallet
                 'Me.cbAccountList.SelectedValue = currentAccount
                 cbAccountList.SelectedIndex = cbAccountList.FindString(c)
                 'reloadData()
+                Me.Timer1.Enabled = True
             End If
         Else
             If MessageBox.Show(Me, "We are about to install and setup localDB. Do you want to continue?", "Install", vbYesNo, vbQuestion) = vbYes Then
@@ -112,8 +113,8 @@ Public Class wallet
             '    curAccount.contactJSON = contact
             'End If
             'If trx <> "" Then curAccount.trxJSON = trx
-            currentAccount = userName
-            My.Settings.curAccount = userName
+            If userName <> "" Then currentAccount = userName
+            If userName <> "" Then My.Settings.curAccount = userName
         End If
 
         Dim json = "{""accountList"":[%item%]}"
@@ -282,7 +283,7 @@ Public Class wallet
             'Dim sqlstr = "declare @ed nvarchar(max); exec wallet_createAccount 'live', '" & pwd & "', @ed output; select @ed"
             'Dim ed = My.Settings.myEDT
             Dim ed = accountList(currentAccount).AccountEDT
-            Dim sqlstr = "exec wallet_status null, '" & ed & "', '" & pwd & "', @mode=0, @isfull=" & isFull
+            Dim sqlstr = "exec wallet_status null, '" & ed & "', '" & pwd & "', @mode=0, @isfull=" & IIf(isFull, 1, 0)
             Dim ds As DataSet = SelectSqlSrvRows(sqlstr, odbc)
             If ds.Tables.Count > 0 AndAlso ds.Tables(0).Rows.Count > 0 Then
                 For Each x As DataRow In ds.Tables(0).Rows
@@ -292,43 +293,50 @@ Public Class wallet
         End If
         Me.tbBalance.Text = Format(trxValue, "#,###,##0")
     End Sub
-    Sub getWalletHistory(isFull As Boolean)
+    Sub getWalletHistory(isFull As Boolean, Optional async As Boolean = False)
         Dim odbc = "Data Source=(localdb)\operahouse;Initial Catalog=blockchainv2;Integrated Security=True" 'My.Settings.odbc
         'Dim pwd = My.Settings.pwd
         Dim pwd = currentPassword
         If pwd <> "" Then
-            'Dim sqlstr = "declare @ed nvarchar(max); exec wallet_createAccount 'live', '" & pwd & "', @ed output; select @ed"
-            'Dim ed = My.Settings.myEDT
-            Me.lbTrxList.Items.Clear()
-            trxList = New Dictionary(Of String, TrxType)
             Dim ed = accountList(currentAccount).AccountEDT
-            Dim sqlstr = "exec wallet_status null, '" & ed & "', '" & pwd & "', @mode=1, @isFull=" & isFull
-            Dim ds As DataSet = SelectSqlSrvRows(sqlstr, odbc)
-            If ds.Tables.Count > 0 AndAlso ds.Tables(0).Rows.Count > 0 Then
-                For Each x As DataRow In ds.Tables(0).Rows
-                    Dim trxValue = x.Item("trxValue").ToString
-                    Dim trxDate = x.Item("trxDate").ToString
-                    Dim asset = x.Item("assetGUID").ToString
-                    Dim rcxKey = x.Item("rcxKey").ToString
-                    Dim itemGUID = x.Item("itemGUID").ToString
-                    Dim trxType = x.Item("trxType").ToString
-                    Dim status = IIf(IsDBNull(x.Item("status")), 0, x.Item("status").ToString)
-                    Dim trxkey = trxDate & " type: " & trxType & " value: " & trxValue & " status: " & status
-                    Me.lbTrxList.Items.Add(trxkey)
-                    If itemGUID <> "" Then
-                        Dim isexists = False
-                        For Each c In trxList
-                            If c.Key = trxkey Then
-                                isexists = True
-                                Exit For
+            Dim sqlstr = "exec wallet_status null, '" & ed & "', '" & pwd & "', @mode=1, @isfull=" & IIf(isFull, 1, 0)
+
+            If Not async Then
+                'Dim sqlstr = "declare @ed nvarchar(max); exec wallet_createAccount 'live', '" & pwd & "', @ed output; select @ed"
+                'Dim ed = My.Settings.myEDT
+                Me.lbTrxList.Items.Clear()
+                'trxList = New Dictionary(Of String, TrxType)
+
+                Dim ds As DataSet = SelectSqlSrvRows(sqlstr, odbc)
+                If ds.Tables.Count > 0 AndAlso ds.Tables(0).Rows.Count > 0 Then
+                    For Each x As DataRow In ds.Tables(0).Rows
+                        Dim trxValue = x.Item("trxValue").ToString
+                        Dim trxDate = x.Item("trxDate").ToString
+                        Dim asset = x.Item("assetGUID").ToString
+                        Dim rcxKey = x.Item("rcxKey").ToString
+                        Dim itemGUID = x.Item("itemGUID").ToString
+                        Dim trxType = x.Item("trxType").ToString
+                        Dim status = IIf(IsDBNull(x.Item("status")), 0, x.Item("status").ToString)
+                        Dim trxkey = trxDate & " type: " & trxType & " value: " & trxValue & " status: " & status
+                        Me.lbTrxList.Items.Add(trxkey)
+                        If itemGUID <> "" Then
+                            Dim isexists = False
+                            For Each c In trxList
+                                If c.Key = trxkey Then
+                                    isexists = True
+                                    Exit For
+                                End If
+                            Next
+                            If Not isexists Then
+                                trxList.Add(trxkey, New TrxType With {.ItemGUID = itemGUID, .Account = rcxKey, .Value = trxValue, .trxType = trxType, .Note = rcxKey, .trxDate = trxDate, .assetGUID = assetGUID, .status = status})
                             End If
-                        Next
-                        If Not isexists Then
-                            trxList.Add(trxkey, New TrxType With {.ItemGUID = itemGUID, .Account = rcxKey, .Value = trxValue, .trxType = trxType, .Note = rcxKey, .trxDate = trxDate, .assetGUID = assetGUID, .status = status})
                         End If
-                    End If
-                Next
+                    Next
+                End If
+            Else
+                asynclocalScript(sqlstr, coreDB, pipename)
             End If
+
         End If
 
     End Sub
@@ -521,7 +529,7 @@ Public Class wallet
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-
+        'getWalletHistory(True, True)
     End Sub
 
     Function asynclocalScript(sqlstr, db, pipename) As Integer

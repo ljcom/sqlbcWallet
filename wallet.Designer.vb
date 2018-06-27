@@ -102,12 +102,23 @@ Partial Class wallet
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Button5 = New System.Windows.Forms.Button()
+        Me.tpAssets = New System.Windows.Forms.TabPage()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.lbAssets = New System.Windows.Forms.ListBox()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.Button7 = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.tpBalance.SuspendLayout()
         Me.tpSend.SuspendLayout()
         Me.tpTrxList.SuspendLayout()
         Me.tpSettings.SuspendLayout()
         Me.tpNode.SuspendLayout()
+        Me.tpAssets.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -117,6 +128,7 @@ Partial Class wallet
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TabControl1.Controls.Add(Me.tpBalance)
         Me.TabControl1.Controls.Add(Me.tpSend)
+        Me.TabControl1.Controls.Add(Me.tpAssets)
         Me.TabControl1.Controls.Add(Me.tpTrxList)
         Me.TabControl1.Controls.Add(Me.tpSettings)
         Me.TabControl1.Controls.Add(Me.tpNode)
@@ -944,6 +956,7 @@ Partial Class wallet
         '
         'Timer1
         '
+        Me.Timer1.Interval = 1000
         '
         'Button5
         '
@@ -954,6 +967,114 @@ Partial Class wallet
         Me.Button5.TabIndex = 20
         Me.Button5.Text = "Delete"
         Me.Button5.UseVisualStyleBackColor = True
+        '
+        'tpAssets
+        '
+        Me.tpAssets.Controls.Add(Me.Button6)
+        Me.tpAssets.Controls.Add(Me.Button7)
+        Me.tpAssets.Controls.Add(Me.Label32)
+        Me.tpAssets.Controls.Add(Me.TextBox1)
+        Me.tpAssets.Controls.Add(Me.Label33)
+        Me.tpAssets.Controls.Add(Me.TextBox2)
+        Me.tpAssets.Controls.Add(Me.Label34)
+        Me.tpAssets.Controls.Add(Me.Label31)
+        Me.tpAssets.Controls.Add(Me.lbAssets)
+        Me.tpAssets.Location = New System.Drawing.Point(4, 22)
+        Me.tpAssets.Name = "tpAssets"
+        Me.tpAssets.Padding = New System.Windows.Forms.Padding(3)
+        Me.tpAssets.Size = New System.Drawing.Size(548, 346)
+        Me.tpAssets.TabIndex = 5
+        Me.tpAssets.Text = "Assets"
+        Me.tpAssets.UseVisualStyleBackColor = True
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label31.Location = New System.Drawing.Point(6, 5)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(62, 13)
+        Me.Label31.TabIndex = 3
+        Me.Label31.Text = "Asset List"
+        '
+        'lbAssets
+        '
+        Me.lbAssets.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbAssets.FormattingEnabled = True
+        Me.lbAssets.Location = New System.Drawing.Point(6, 21)
+        Me.lbAssets.Name = "lbAssets"
+        Me.lbAssets.Size = New System.Drawing.Size(536, 82)
+        Me.lbAssets.TabIndex = 2
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(7, 157)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(34, 13)
+        Me.Label32.TabIndex = 11
+        Me.Label32.Text = "Script"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox1.Location = New System.Drawing.Point(86, 154)
+        Me.TextBox1.Multiline = True
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.TextBox1.Size = New System.Drawing.Size(456, 157)
+        Me.TextBox1.TabIndex = 8
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(6, 131)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(35, 13)
+        Me.Label33.TabIndex = 10
+        Me.Label33.Text = "Name"
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox2.Location = New System.Drawing.Point(86, 128)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(456, 20)
+        Me.TextBox2.TabIndex = 7
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label34.Location = New System.Drawing.Point(7, 112)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(75, 13)
+        Me.Label34.TabIndex = 9
+        Me.Label34.Text = "Asset Detail"
+        '
+        'Button6
+        '
+        Me.Button6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button6.Location = New System.Drawing.Point(467, 317)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(75, 23)
+        Me.Button6.TabIndex = 13
+        Me.Button6.Text = "Save"
+        Me.Button6.UseVisualStyleBackColor = True
+        '
+        'Button7
+        '
+        Me.Button7.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button7.Location = New System.Drawing.Point(386, 317)
+        Me.Button7.Name = "Button7"
+        Me.Button7.Size = New System.Drawing.Size(75, 23)
+        Me.Button7.TabIndex = 12
+        Me.Button7.Text = "New"
+        Me.Button7.UseVisualStyleBackColor = True
         '
         'wallet
         '
@@ -976,6 +1097,8 @@ Partial Class wallet
         Me.tpSettings.PerformLayout()
         Me.tpNode.ResumeLayout(False)
         Me.tpNode.PerformLayout()
+        Me.tpAssets.ResumeLayout(False)
+        Me.tpAssets.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1060,4 +1183,14 @@ Partial Class wallet
     Friend WithEvents Label30 As Label
     Friend WithEvents tbLog As TextBox
     Friend WithEvents Button5 As Button
+    Friend WithEvents tpAssets As TabPage
+    Friend WithEvents Button6 As Button
+    Friend WithEvents Button7 As Button
+    Friend WithEvents Label32 As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Label33 As Label
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents Label34 As Label
+    Friend WithEvents Label31 As Label
+    Friend WithEvents lbAssets As ListBox
 End Class
