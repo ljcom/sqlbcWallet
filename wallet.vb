@@ -41,7 +41,7 @@ Public Class wallet
             Dim c = My.Settings.curAccount
             If c <> "" Then
                 'Me.cbAccountList.SelectedValue = currentAccount
-                cbAccountList.SelectedIndex = cbAccountList.FindString(c)
+                'cbAccountList.SelectedIndex = cbAccountList.FindString(c)
                 'reloadData()
                 Me.Timer1.Enabled = True
             End If
